@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: unit-test
+  description: conf iac airbyte
+  annotations:
+   dev.azure.com/project-repo: enerbit/eb.iac.airbyte
+   backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  owner: development
+  lifecycle: experimental
