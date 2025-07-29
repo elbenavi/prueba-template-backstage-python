@@ -21,7 +21,7 @@ stages:
     steps:
 
     - task: Docker@2
-      displayName: Build and push image
+      displayName: Build image
       inputs:
         containerRegistry: '$(ContainerRegistryConnection)'
         repository: $(imageRepository) 
@@ -32,6 +32,7 @@ stages:
           latest
 
     - task: Docker@2
+      displayName: Push image
       inputs:
         containerRegistry: '$(ContainerRegistryConnection)'
         repository: $(imageRepository) 
@@ -43,7 +44,7 @@ stages:
     - task: CmdLine@2
       displayName: 'Build manifests'
       inputs:
-        script: 'sed --in-place "s/:latest/":$(tag)"/" k8s/base/deployment_api.yaml'
+        script: 'sed --in-place "s/:latest/":$(tag)"/" k8s/base/deployment.yaml'
       
     - publish: k8s
       artifact: app
