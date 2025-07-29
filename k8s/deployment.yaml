@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${{values.repoName}}
+  labels:
+    app: ${{values.repoName}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${{values.repoName}}
+  template:
+    metadata:
+      labels:
+        app: ${{values.repoName}}
+    spec:
+      imagePullSecrets:
+        - name: enerbit-registry
+      containers:
+      - name: ${{values.repoName}}
+        image: enerbit.azurecr.io/${{values.repoName}}:latest
+        ports:
+        - containerPort: 80

@@ -1,0 +1,74 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: container-registry
+
+  - name: imageRepository
+    value: ${{values.repoName}}
+  - name: tag
+    value: $(Build.BuildId)
+  - name: containerRegistryImageName
+    value: $(imageRepository):$(tag)
+    
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+
+    - task: Docker@2
+      displayName: Build and push image
+      inputs:
+        containerRegistry: '$(ContainerRegistryConnection)'
+        repository: $(imageRepository) 
+        command: build
+        dockerFile: '**/Dockerfile'
+        tags: |
+          $(tag)
+          latest
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: '$(ContainerRegistryConnection)'
+        repository: $(imageRepository) 
+        command: 'push'
+        tags: |
+          $(tag)
+          latest
+      
+    - task: CmdLine@2
+      displayName: 'Build manifests'
+      inputs:
+        script: 'sed --in-place "s/:latest/":$(tag)"/" k8s/base/deployment_api.yaml'
+      
+    - publish: k8s
+      artifact: app
+
+- stage: DeployToDEV
+  displayName: Deploy to DEV
+  dependsOn: Build
+  variables:
+    - group: eb-dev-variables
+    - group: eb-dev-secrets
+    - name: armConnection
+      value: 'DEV-ARM-EB'
+    - name: targetEnv
+      value: 'dev'
+      
+  jobs:
+  - deployment: DeployAccountManager
+    environment: eb-dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: app
+          - template: templates/steps-deploy.yaml
+            parameters: 
+              armConnection: ${{ variables.armConnection }}
+              env: ${{ variables.targetEnv }}
