@@ -54,7 +54,6 @@ stages:
   dependsOn: Build
   variables:
     - group: eb-dev-variables
-    - group: eb-dev-secrets
     - name: armConnection
       value: 'DEV-ARM-EB'
     - name: targetEnv
