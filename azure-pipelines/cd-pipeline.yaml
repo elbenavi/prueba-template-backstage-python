@@ -8,7 +8,7 @@ variables:
   - group: container-registry
 
   - name: imageRepository
-    value: ${{values.repoName}}
+    value: \${{values.repoName}}
   - name: tag
     value: $(Build.BuildId)
   - name: containerRegistryImageName
@@ -71,5 +71,5 @@ stages:
             artifact: app
           - template: templates/steps-deploy.yaml
             parameters: 
-              armConnection: ${{ variables.armConnection }}
-              env: ${{ variables.targetEnv }}
+              armConnection: \${{ variables.armConnection }}
+              env: \${{ variables.targetEnv }}
