@@ -71,5 +71,5 @@ stages:
             artifact: app
           - template: templates/steps-deploy.yaml
             parameters: 
-              armConnection: "_${{ variables.armConnection }}_"
-              env: "_${{ variables.targetEnv }}_"
+              armConnection: ${{ '${{ variables.armConnection }}' }}
+              env: ${{ '${{ variables.targetEnv }}' }}
