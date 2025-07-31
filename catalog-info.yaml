@@ -4,9 +4,9 @@ metadata:
   name: ${{values.repoName}}
   description: Python app that displays time - named ${{values.repoName}}
   annotations:
-   dev.azure.com/project-repo: enerbit/${{values.repoName}}
-   dev.azure.com/readme-path: /docs/index.md
-   backstage.io/techdocs-ref: dir:.
+    dev.azure.com/project-repo: enerbit/${{values.repoName}}
+    dev.azure.com/readme-path: /docs/index.md
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
   owner: development
