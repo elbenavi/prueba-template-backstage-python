@@ -56,7 +56,7 @@ stages:
     - group: eb-dev-variables
     - group: eb-dev-secrets
     - name: armConnection
-      value: 'DEV-ARM-EB'
+      value: 'PRUEBA-BACKSTAGE'
     - name: targetEnv
       value: 'dev'
       

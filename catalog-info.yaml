@@ -7,6 +7,8 @@ metadata:
     dev.azure.com/project-repo: enerbit/${{values.repoName}}
     dev.azure.com/readme-path: /docs/index.md
     backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: ${{values.repoName}}
+    backstage.io/kubernetes-namespace: ${{values.namespace}}
 spec:
   type: service
   owner: development
