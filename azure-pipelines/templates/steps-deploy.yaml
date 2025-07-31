@@ -6,6 +6,10 @@ parameters:
 
 steps:
 
+- task: KubeloginInstaller@0
+  inputs:
+    kubeloginVersion: 'latest'
+    
 - task: Kubernetes@1
   displayName: 'kubectl apply env kustomization'
   inputs:

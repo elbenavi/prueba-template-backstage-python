@@ -5,8 +5,10 @@ metadata:
   namespace: ${{values.namespace}}
   labels:
     app: ${{values.repoName}}
+    backstage.io/kubernetes-id: ${{values.repoName}}
+    backstage.io/kubernetes-namespace: ${{values.namespace}}
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: ${{values.repoName}}
@@ -14,6 +16,8 @@ spec:
     metadata:
       labels:
         app: ${{values.repoName}}
+        backstage.io/kubernetes-id: ${{values.repoName}}
+        backstage.io/kubernetes-namespace: ${{values.namespace}}
     spec:
       imagePullSecrets:
         - name: enerbit-registry
@@ -22,3 +26,10 @@ spec:
         image: enerbit.azurecr.io/${{values.repoName}}:latest
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            cpu: "30m"
+            memory: "100Mi"
+          limits:
+            cpu: "100m"
+            memory: "200Mi"
