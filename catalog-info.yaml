@@ -4,7 +4,7 @@ metadata:
   name: ${{values.repoName}}
   description: Python app that displays time - named ${{values.repoName}}
   annotations:
-    dev.azure.com/project-repo: {{projectName}}/${{values.repoName}}
+    dev.azure.com/project-repo: ${{projectName}}/${{values.repoName}}
     dev.azure.com/readme-path: /docs/index.md
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-id: ${{values.repoName}}
