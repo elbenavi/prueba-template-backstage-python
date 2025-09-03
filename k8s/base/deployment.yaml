@@ -8,7 +8,7 @@ metadata:
     backstage.io/kubernetes-id: ${{values.repoName}}
     backstage.io/kubernetes-namespace: ${{values.namespace}}
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: ${{values.repoName}}
