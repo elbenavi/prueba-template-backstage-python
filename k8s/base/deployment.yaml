@@ -20,7 +20,7 @@ spec:
         backstage.io/kubernetes-namespace: ${{values.namespace}}
     spec:
       imagePullSecrets:
-        - name: enerbit-registry
+        - name: kantia-registry
       containers:
       - name: ${{values.repoName}}
         image: enerbit.azurecr.io/${{values.repoName}}:latest
