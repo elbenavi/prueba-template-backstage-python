@@ -13,6 +13,8 @@ variables:
     value: $(Build.BuildId)
   - name: containerRegistryImageName
     value: $(imageRepository):$(tag)
+  - name: registry
+    value: kantia-registry
     
 stages:
 - stage: Build
@@ -23,7 +25,7 @@ stages:
     - task: Docker@2
       displayName: Build image
       inputs:
-        containerRegistry: '$(ContainerRegistryConnection)'
+        containerRegistry: '$(registry)'
         repository: $(imageRepository) 
         command: build
         dockerFile: '**/Dockerfile'
@@ -34,7 +36,7 @@ stages:
     - task: Docker@2
       displayName: Push image
       inputs:
-        containerRegistry: '$(ContainerRegistryConnection)'
+        containerRegistry: '$(registry)'
         repository: $(imageRepository) 
         command: 'push'
         tags: |
@@ -53,16 +55,16 @@ stages:
   displayName: Deploy to DEV
   dependsOn: Build
   variables:
-    - group: eb-dev-variables
-    - group: eb-dev-secrets
+    - group: kantia-dev-variables
+    # - group: eb-dev-secrets
     - name: armConnection
-      value: 'PRUEBA-BACKSTAGE'
+      value: 'DEV-ARM-KANTIA'
     - name: targetEnv
       value: 'dev'
       
   jobs:
   - deployment: DeployAccountManager
-    environment: eb-dev
+    environment: dev
     strategy:
       runOnce:
         deploy:
