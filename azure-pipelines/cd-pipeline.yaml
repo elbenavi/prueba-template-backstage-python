@@ -14,7 +14,7 @@ variables:
   - name: containerRegistryImageName
     value: $(imageRepository):$(tag)
   - name: registry
-    value: kantia-registry
+    value: cerebro-registry-prd
     
 stages:
 - stage: Build
