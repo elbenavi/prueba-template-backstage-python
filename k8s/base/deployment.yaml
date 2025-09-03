@@ -23,7 +23,7 @@ spec:
         - name: kantia-registry
       containers:
       - name: ${{values.repoName}}
-        image: enerbit.azurecr.io/${{values.repoName}}:latest
+        image: cerebroprd.azurecr.io/${{values.repoName}}:latest
         ports:
         - containerPort: 80
         resources:
